@@ -6,8 +6,18 @@ const courseSchema = Joi.object({
   author: Joi.string().min(3),
 });
 
-function validateCourse(course) {
-  return courseSchema.validate(course);
-}
+const genreSchema = Joi.object({
+  name: Joi.string().min(3).max(50).required(),
+});
 
-module.exports = validateCourse;
+const customerSchema = Joi.object({
+  isGold: Joi.boolean(),
+  name: Joi.string().min(3).max(50).required(),
+  phone: Joi.string().min(3).max(50).required(),
+});
+
+module.exports = {
+  validateCourse: (course) => courseSchema.validate(course),
+  validateGenre: (genre) => genreSchema.validate(genre),
+  validateCustomer: (customer) => customerSchema.validate(customer),
+};

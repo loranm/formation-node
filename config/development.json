@@ -1,13 +1,11 @@
 {
-  "name": "My express app - development",
-  "mail": {
-    "host": "dev-mail-server"
-  },
+  "name": "Vidly - application - development",
   "db": {
-    "uri": "mongodb://localhost:27017/playground",
+    "uri": "mongodb://localhost:27017/vidly",
     "options": {
       "useNewUrlParser": true,
-      "useUnifiedTopology": true
+      "useUnifiedTopology": true,
+      "useFindAndModify": false
     }
   }
 }

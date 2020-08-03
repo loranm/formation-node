@@ -29,7 +29,7 @@ const courseSchema = new mongoose.Schema({
   },
 });
 
-const genreShema = new mongoose.Schema({
+const genreSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -37,7 +37,14 @@ const genreShema = new mongoose.Schema({
   },
 });
 
+const customerSchema = new mongoose.Schema({
+  isGold: { type: Boolean },
+  name: { type: String },
+  phone: { type: String },
+});
+
 module.exports = {
   courseSchema,
-  genreShema,
+  genreSchema,
+  customerSchema,
 };
