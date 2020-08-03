@@ -2,5 +2,12 @@
   "name": "My express app - development",
   "mail": {
     "host": "dev-mail-server"
+  },
+  "db": {
+    "uri": "mongodb://localhost:27017/playground",
+    "options": {
+      "useNewUrlParser": true,
+      "useUnifiedTopology": true
+    }
   }
 }
