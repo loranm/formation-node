@@ -17,7 +17,7 @@ router.post("/", createNewGenre);
 
 router.put("/:id", modifyGenre);
 
-router.delete("/:id", deleteGenre);
+router.delete("/:id", removeGenre);
 
 async function getAllGenres(req, res) {
   try {
@@ -63,9 +63,9 @@ async function modifyGenre(req, res) {
   }
 }
 
-async function deleteGenre(req, res) {
+async function removeGenre(req, res) {
   try {
-    const deletedGenre = await deleteGenre(req.params.id);
+    const deletedGenre = await removeGenre(req.params.id);
     if (!deletedGenre) {
       res.status(404).send(`Id: _${req.params.id}_ does not exist`);
     }

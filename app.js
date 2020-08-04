@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const config = require("config");
 const app = express();
 const dbClient = require("./db/mongoose");
+const { getCourses } = require("./db/courses");
 
 dbClient();
 const PORT = process.env.PORT || 3000;
@@ -30,4 +31,6 @@ app.listen(PORT, (req, res) => {
   console.log(`${config.get("name")} started at PORT:${PORT}`);
 });
 
-modules.exports = app;
+getCourses();
+
+module.exports = app;

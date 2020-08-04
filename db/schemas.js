@@ -14,7 +14,7 @@ const courseSchema = new mongoose.Schema({
     minlength: 3,
   },
   category: { type: String, enum: categories },
-  author: String,
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "authors" },
   tags: {
     type: Array,
     validate: tagValidator,
@@ -26,6 +26,22 @@ const courseSchema = new mongoose.Schema({
     required: function () {
       return this.isPublished;
     },
+  },
+});
+
+const authorSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: 3,
+  },
+  bio: {
+    type: String,
+    minlength: 3,
+  },
+  website: {
+    type: String,
+    minlength: 3,
   },
 });
 
@@ -45,6 +61,7 @@ const customerSchema = new mongoose.Schema({
 
 module.exports = {
   courseSchema,
+  authorSchema,
   genreSchema,
   customerSchema,
 };
