@@ -28,7 +28,6 @@ module.exports = {
         .limit(10)
         .sort({ name: 1 })
         .select({ name: 1, tags: 1, price: 1, author: 1 });
-      console.log(courses);
     } catch (error) {
       console.error(error);
     }

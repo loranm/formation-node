@@ -59,9 +59,32 @@ const customerSchema = new mongoose.Schema({
   phone: { type: String },
 });
 
+const movieSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    minlength: 3,
+  },
+  genre: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "genres",
+  },
+  numberInStock: { type: Number, default: 0 },
+  dailyRentalRate: {
+    type: Number,
+    default: 0,
+  },
+});
+
+const rentalSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+});
+
 module.exports = {
   courseSchema,
   authorSchema,
   genreSchema,
   customerSchema,
+  movieSchema,
+  rentalSchema,
 };

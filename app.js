@@ -13,6 +13,8 @@ const PORT = process.env.PORT || 3000;
 const courses = require("./routes/courses");
 const genres = require("./routes/genres");
 const customers = require("./routes/customers");
+const movies = require("./routes/movies");
+const rental = require("./routes/rental");
 
 app.use(express.json());
 
@@ -25,6 +27,8 @@ if (app.get("env") === "development") {
 app.use("/api/courses", courses);
 app.use("/api/vidly/genres", genres);
 app.use("/api/vidly/customers", customers);
+app.use("/api/vidly/movies", movies);
+app.use("/api/vidly/rental", rental);
 
 app.listen(PORT, (req, res) => {
   morgan("combined");
