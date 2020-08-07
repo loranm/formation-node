@@ -10,7 +10,9 @@ module.exports = {
   },
   addMovie: (options) => {
     const newMovie = new MovieModel(options);
-    return newMovie.save();
+    newMovie.save();
+
+    return newMovie;
   },
   getMovieById: (id) =>
     MovieModel.findOne({ _id: id }).populate("genre", "name -_id"),
