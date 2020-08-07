@@ -16,8 +16,14 @@ const customerSchema = Joi.object({
   phone: Joi.string().min(3).max(50).required(),
 });
 
+const rentalSchema = Joi.object({
+  customerId: Joi.string().required(),
+  movieId: Joi.string().required(),
+});
+
 module.exports = {
   validateCourse: (course) => courseSchema.validate(course),
   validateGenre: (genre) => genreSchema.validate(genre),
   validateCustomer: (customer) => customerSchema.validate(customer),
+  validateRental: (rental) => rentalSchema.validate(rental),
 };

@@ -5,6 +5,7 @@ const CustomerModel = mongoose.model("customers", customerSchema);
 
 module.exports = {
   getCustomers: () => CustomerModel.find().sort("name"),
+  getCustomer: (id) => CustomerModel.findById(id),
   addCustomer: (options) => {
     const newCustomer = new CustomerModel(options);
     return newCustomer.save();
