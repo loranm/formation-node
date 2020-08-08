@@ -1,0 +1,4 @@
+{
+  "comment": "jwtPrivateKey uses env vidly_private_key",
+  "jwtPrivateKey": "vidly_private_key"
+}
