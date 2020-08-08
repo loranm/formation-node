@@ -30,10 +30,28 @@ const rentalSchema = Joi.object({
   movieId: Joi.objectId().required(),
 });
 
+const userSchema = Joi.object({
+  name: Joi.string().min(5).max(50).required(),
+  email: Joi.string().min(5).max(255).required().email(),
+  password: Joi.string().min(5).max(255).required(),
+});
+
+const idSchema = Joi.object({
+  id: Joi.objectId(),
+});
+
+const authSchema = Joi.object({
+  email: Joi.string().min(5).max(255).required().email(),
+  password: Joi.string().min(5).max(255).required(),
+});
+
 module.exports = {
+  validateId: (id) => idSchema.validate(id),
   validateCourse: (course) => courseSchema.validate(course),
   validateGenre: (genre) => genreSchema.validate(genre),
   validateCustomer: (customer) => customerSchema.validate(customer),
   validateMovie: (movie) => movieSchema.validate(movie),
   validateRental: (rental) => rentalSchema.validate(rental),
+  validateUser: (user) => userSchema.validate(user),
+  validateAuth: (auth) => authSchema.validate(auth),
 };

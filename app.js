@@ -15,6 +15,8 @@ const genres = require("./routes/genres");
 const customers = require("./routes/customers");
 const movies = require("./routes/movies");
 const rental = require("./routes/rental");
+const users = require("./routes/users");
+const authentication = require("./routes/auth");
 
 app.use(express.json());
 
@@ -28,7 +30,9 @@ app.use("/api/courses", courses);
 app.use("/api/vidly/genres", genres);
 app.use("/api/vidly/customers", customers);
 app.use("/api/vidly/movies", movies);
-app.use("/api/vidly/rental", rental);
+app.use("/api/rental", rental);
+app.use("/api/users", users);
+app.use("/api/auth", authentication);
 
 app.listen(PORT, (req, res) => {
   morgan("combined");

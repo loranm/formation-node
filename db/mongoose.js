@@ -7,6 +7,7 @@ const db = config.get("db.uri");
 
 const client = async () => {
   try {
+    mongoose.set("useCreateIndex", true);
     await mongoose.connect(db, config.get("db.options"));
   } catch (error) {
     console.log(error);
