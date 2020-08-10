@@ -8,8 +8,6 @@ module.exports = {
     const course = new CourseModel(courseObject);
     try {
       const result = await course.save();
-
-      console.log("createCourse -> result", result);
     } catch (error) {
       console.log("createCourse -> error", error.message);
     }
@@ -35,7 +33,6 @@ module.exports = {
 
   deleteCourse: async (id) => {
     const course = await CourseModel.findByIdAndRemove(id);
-    console.log(course);
   },
 
   countCourses: async (options) => {

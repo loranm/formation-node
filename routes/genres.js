@@ -7,17 +7,18 @@ const {
   updateGenre,
   deleteGenre,
 } = require("../db/genres");
+const { findUserById } = require("../db/user");
 const { validateGenre } = require("../utils/validate");
+const authorisation = require("../middlewares/authorisation");
+const isAdmin = require("../middlewares/admin");
 
 router.get("/", getAllGenres);
-
 router.get("/:id", getGenreById);
-
-router.post("/", createNewGenre);
-
+router.post("/", [authorisation, isAdmin], createNewGenre);
 router.put("/:id", modifyGenre);
-
 router.delete("/:id", removeGenre);
+
+module.exports = router;
 
 async function getAllGenres(req, res) {
   try {
@@ -38,11 +39,15 @@ async function getGenreById(req, res) {
 
 async function createNewGenre(req, res) {
   try {
+    const validUser = await findUserById(req.user.id);
+
     const { error } = validateGenre(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     const genre = await addGenre(req.body);
+
     res.json(genre);
   } catch (error) {
+    console.log(error);
     handleError;
   }
 }
@@ -79,5 +84,3 @@ async function removeGenre(req, res) {
 function handleError(error) {
   console.error(error);
 }
-
-module.exports = router;

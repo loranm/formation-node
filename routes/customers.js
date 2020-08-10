@@ -39,7 +39,6 @@ async function createNewCustomer(req, res) {
 async function modifyCustomer(req, res) {
   try {
     const updatedCustomer = await updateCustomer(req.params.id, req.body);
-    console.log("updated", updatedCustomer);
     if (Boolean(updatedCustomer)) {
       return res.json(updatedCustomer);
     }

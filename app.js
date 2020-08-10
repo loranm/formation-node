@@ -27,7 +27,7 @@ if (app.get("env") === "development") {
 }
 
 app.use("/api/courses", courses);
-app.use("/api/vidly/genres", genres);
+app.use("/api/genres", genres);
 app.use("/api/vidly/customers", customers);
 app.use("/api/vidly/movies", movies);
 app.use("/api/rental", rental);

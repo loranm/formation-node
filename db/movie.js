@@ -5,7 +5,6 @@ const MovieModel = mongoose.model("movie", movieSchema);
 
 module.exports = {
   getMovies: () => {
-    console.log("geting movies");
     return MovieModel.find().populate("genre", "name -_id");
   },
   addMovie: (options) => {

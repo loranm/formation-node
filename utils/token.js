@@ -3,8 +3,16 @@ const config = require("config");
 
 const privateKey = config.get("jwtPrivateKey");
 
-function sign(payload) {
+function generateToken(payload) {
   return jwt.sign(payload, privateKey);
 }
 
-module.exports = { sign };
+function verify(token) {
+  try {
+    return jwt.verify(token, privateKey);
+  } catch (error) {
+    console.log("invalid json web token", error);
+  }
+}
+
+module.exports = { generateToken, verify };

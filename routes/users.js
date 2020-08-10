@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const {
   findUsers,
   saveUser,
@@ -8,17 +9,27 @@ const {
   updateUser,
 } = require("../db/user");
 const { validateUser, validateId } = require("../utils/validate");
-const { reset } = require("nodemon");
-const saltPassword = require("../utils/salt");
-const router = express.Router();
+const { saltPassword } = require("../utils/salt");
+const authorisation = require("../middlewares/authorisation");
 
-const getUsers = async (req, res) => {
+router.get("/", getUsers);
+router.get("/me", authorisation, getCurrentUser);
+router.get("/:id", getUser);
+router.post("/", postUser);
+router.put("/:id", putUser);
+router.delete("/:id", deleteUser);
+
+module.exports = router;
+
+async function getUsers(req, res) {
   try {
     return res.send(await findUsers());
-  } catch (error) {}
-};
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-const getUser = async (req, res) => {
+async function getUser(req, res) {
   try {
     const { error } = validateId({ id: req.params.id });
     return error
@@ -27,9 +38,14 @@ const getUser = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-const postUser = async (req, res) => {
+async function getCurrentUser(req, res) {
+  const user = await findUserById(req.user.id).select("-password");
+  return res.json(user);
+}
+
+async function postUser(req, res) {
   try {
     const user = await findUserByEmail(req.body.email);
     if (user) return res.status(400).send("User already registered");
@@ -39,13 +55,17 @@ const postUser = async (req, res) => {
 
     const password = await saltPassword(req.body.password);
 
-    return res.json(saveUser({ ...req.body, password }));
+    const newUser = saveUser({ ...req.body, password });
+
+    const token = newUser.generateToken({ id: newUser._id });
+
+    return res.header("x-auth-token", token).json(newUser);
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-const putUser = async (req, res) => {
+async function putUser(req, res) {
   try {
     const { error } = validateId({ id: req.params.id });
     return error
@@ -54,9 +74,9 @@ const putUser = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-const deleteUser = async (req, res) => {
+async function deleteUser(req, res) {
   try {
     const { error } = validateId({ id: req.params.id });
     return error
@@ -65,12 +85,4 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
-
-router.get("/", getUsers);
-router.get("/:id", getUser);
-router.post("/", postUser);
-router.put("/:id", putUser);
-router.delete("/:id", deleteUser);
-
-module.exports = router;
+}

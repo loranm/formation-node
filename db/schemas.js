@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { generateToken } = require("../utils/token");
 
 const categories = ["web", "mobile", "network"];
 
@@ -147,7 +148,12 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 1024,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
 });
+userSchema.methods.generateToken = generateToken;
 
 module.exports = {
   courseSchema,
