@@ -6,6 +6,6 @@ const config = require("config");
 require("./db/mongoose")();
 require("./startup/routes")(app);
 
-app.listen(PORT, (req, res) => {
+app.listen(PORT, () => {
   console.log(`${config.get("name")} started at PORT:${PORT}`);
 });

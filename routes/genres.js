@@ -21,66 +21,42 @@ router.delete("/:id", removeGenre);
 module.exports = router;
 
 async function getAllGenres(req, res) {
-  try {
-    res.json(await getGenres());
-  } catch (error) {
-    handleError;
-  }
+  res.json(await getGenres());
 }
 
 async function getGenreById(req, res) {
-  try {
-    const genre = await getGenre(req.params.id);
-    res.json(genre);
-  } catch (error) {
-    handleError;
-  }
+  const genre = await getGenre(req.params.id);
+  res.json(genre);
 }
 
 async function createNewGenre(req, res) {
-  try {
-    const validUser = await findUserById(req.user.id);
+  const validUser = await findUserById(req.user.id);
+  if (!validUser) return res.status(400).send("Id does not exist");
 
-    const { error } = validateGenre(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-    const genre = await addGenre(req.body);
+  const { error } = validateGenre(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+  const genre = await addGenre(req.body);
 
-    res.json(genre);
-  } catch (error) {
-    console.log(error);
-    handleError;
-  }
+  res.json(genre);
 }
 
 async function modifyGenre(req, res) {
-  try {
-    const { error } = validateGenre(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validateGenre(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    const updatedGenre = await updateGenre(req.params.id, req.body);
+  const updatedGenre = await updateGenre(req.params.id, req.body);
 
-    if (!updatedGenre)
-      res.status(404).send(`Id: _${req.params.id}_ does not exist`);
+  if (!updatedGenre)
+    res.status(404).send(`Id: _${req.params.id}_ does not exist`);
 
-    res.send(updatedGenre);
-  } catch (error) {
-    handleError;
-  }
+  res.send(updatedGenre);
 }
 
 async function removeGenre(req, res) {
-  try {
-    const deletedGenre = await removeGenre(req.params.id);
-    if (!deletedGenre) {
-      res.status(404).send(`Id: _${req.params.id}_ does not exist`);
-    }
-
-    res.send(deletedGenre);
-  } catch (error) {
-    handleError;
+  const deletedGenre = await deleteGenre(req.params.id);
+  if (!deletedGenre) {
+    res.status(404).send(`Id: _${req.params.id}_ does not exist`);
   }
-}
 
-function handleError(error) {
-  console.error(error);
+  res.send(deletedGenre);
 }

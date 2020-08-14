@@ -9,7 +9,6 @@ module.exports = (req, res, next) => {
   try {
     const decoded = verify(token);
     req.user = { ...decoded };
-
     return next();
   } catch (error) {
     console.log(error);

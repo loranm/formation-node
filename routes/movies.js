@@ -15,50 +15,28 @@ router.put("/:id", changeMovie);
 router.delete("/:id", removeMovie);
 
 async function getAllMovies(req, res) {
-  try {
-    const movies = await getMovies();
-    res.json(movies);
-  } catch (error) {
-    handleError;
-  }
+  const movies = await getMovies();
+  res.json(movies);
 }
 
 async function getMovie(req, res) {
-  try {
-    const movie = await getMovieById(req.params.id);
-    res.json(movie);
-  } catch (error) {
-    console.log(error);
-  }
+  const movie = await getMovieById(req.params.id);
+  res.json(movie);
 }
 
 async function createMovie(req, res) {
-  try {
-    const newMovie = await addMovie(req.body);
-    res.json(newMovie);
-  } catch (error) {
-    console.error(error);
-  }
+  const newMovie = await addMovie(req.body);
+  res.json(newMovie);
 }
 
 async function changeMovie(req, res) {
-  try {
-    const updatedMovie = await updateMovie(req.params.id, req.body);
-    res.send(updatedMovie);
-  } catch (error) {
-    console.log(error);
-  }
+  const updatedMovie = await updateMovie(req.params.id, req.body);
+  res.send(updatedMovie);
 }
 
 async function removeMovie(req, res) {
-  try {
-    const deletedMovie = await deleteMovie(req.params.id);
-    res.json(deletedMovie);
-  } catch (error) {}
-}
-
-function handleError(error) {
-  console.log(error);
+  const deletedMovie = await deleteMovie(req.params.id);
+  res.json(deletedMovie);
 }
 
 module.exports = router;

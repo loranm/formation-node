@@ -10,6 +10,7 @@ const movies = require("../routes/movies");
 const rental = require("../routes/rental");
 const users = require("../routes/users");
 const authentication = require("../routes/auth");
+const register = require("../routes/register");
 
 module.exports = (app) => {
   app.use(json());
@@ -18,8 +19,9 @@ module.exports = (app) => {
   app.use("/api/courses", courses);
   app.use("/api/genres", genres);
   app.use("/api/vidly/customers", customers);
-  app.use("/api/vidly/movies", movies);
+  app.use("/api/movies", movies);
   app.use("/api/rental", rental);
   app.use("/api/users", users);
+  app.use("/api/register", register);
   app.use("/api/auth", authentication);
 };
