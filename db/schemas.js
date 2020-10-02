@@ -8,6 +8,10 @@ const tagValidator = {
   message: "course should have at least on tag",
 };
 
+const heroSchema = new mongoose.Schema({
+  name: { type: String },
+});
+
 const courseSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -163,4 +167,5 @@ module.exports = {
   movieSchema,
   rentalSchema,
   userSchema,
+  heroSchema,
 };

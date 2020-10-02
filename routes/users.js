@@ -30,6 +30,7 @@ async function getUser(req, res) {
 
 async function getCurrentUser(req, res) {
   const user = await findUserById(req.user.id).select("-password");
+  console.log(user);
   return res.json(user);
 }
 
