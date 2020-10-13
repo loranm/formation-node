@@ -8,17 +8,15 @@ module.exports = {
     const course = new CourseModel(courseObject);
     try {
       const result = await course.save();
-
-      console.log("createCourse -> result", result);
     } catch (error) {
       console.log("createCourse -> error", error.message);
     }
   },
 
-  coursesGet: async (options = {}) => {
-    console.log(options);
+  getCourses: async (options = {}) => {
     try {
       const courses = await CourseModel.find(options)
+        .populate("author", "name -_id")
         // starts with
         // .find({ author: /^pattern/i })
         // ends with
@@ -27,18 +25,17 @@ module.exports = {
         // .find({ author: /.*pattern.*/i })
         .limit(10)
         .sort({ name: 1 })
-        .select({ name: 1, tags: 1, price: 1 });
+        .select({ name: 1, tags: 1, price: 1, author: 1 });
     } catch (error) {
       console.error(error);
     }
   },
 
-  courseDelete: async (id) => {
+  deleteCourse: async (id) => {
     const course = await CourseModel.findByIdAndRemove(id);
-    console.log(course);
   },
 
-  coursesCount: async (options) => {
+  countCourses: async (options) => {
     try {
       const courses = await CourseModel.countDocuments();
     } catch (error) {
