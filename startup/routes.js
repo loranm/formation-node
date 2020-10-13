@@ -1,4 +1,5 @@
 const { json } = require("express");
+const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 
@@ -11,8 +12,10 @@ const rental = require("../routes/rental");
 const users = require("../routes/users");
 const authentication = require("../routes/auth");
 const register = require("../routes/register");
+const heroes = require("../routes/heroes");
 
 module.exports = (app) => {
+  app.use(cors());
   app.use(json());
   app.use(morgan("tiny"));
   app.use(helmet());
@@ -24,4 +27,5 @@ module.exports = (app) => {
   app.use("/api/users", users);
   app.use("/api/register", register);
   app.use("/api/auth", authentication);
+  app.use("/api/heroes", heroes);
 };
