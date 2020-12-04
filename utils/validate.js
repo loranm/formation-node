@@ -45,6 +45,15 @@ const authSchema = Joi.object({
   password: Joi.string().min(5).max(255).required(),
 });
 
+const heroSchema = Joi.object({
+  name: Joi.string().min(5).max(255).required(),
+});
+
+const crisisSchema = Joi.object({
+  name: Joi.string().min(5).max(255).required(),
+  heroes: Joi.array().items(Joi.objectId()).required(),
+});
+
 module.exports = {
   validateId: (id) => idSchema.validate(id),
   validateCourse: (course) => courseSchema.validate(course),
@@ -54,4 +63,6 @@ module.exports = {
   validateRental: (rental) => rentalSchema.validate(rental),
   validateUser: (user) => userSchema.validate(user),
   validateAuth: (auth) => authSchema.validate(auth),
+  validateHero: (hero) => heroSchema.validate(hero),
+  validateCrisis: (crisis) => crisisSchema.validate(crisis),
 };

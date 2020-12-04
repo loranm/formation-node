@@ -13,6 +13,7 @@ const users = require("../routes/users");
 const authentication = require("../routes/auth");
 const register = require("../routes/register");
 const heroes = require("../routes/heroes");
+const crises = require("../routes/crises");
 
 module.exports = (app) => {
   app.use(cors());
@@ -28,4 +29,5 @@ module.exports = (app) => {
   app.use("/api/register", register);
   app.use("/api/auth", authentication);
   app.use("/api/heroes", heroes);
+  app.use("/api/crises", crises);
 };
