@@ -12,7 +12,8 @@ services:
     #   - MONGO_INITDB_ROOT_USERNAME=admin
     #   - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
-      - /home/lo/Documents/GitHub/dockerMongo/data:/data/db
+      #- /home/lo/Documents/GitHub/dockerMongo/data:/data/db
+      - /home/lo/dev/dockerMongo/data:/data/db
     ports:
       - 27017:27017
   mongo-express:
