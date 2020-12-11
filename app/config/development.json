@@ -1,7 +1,7 @@
 {
   "name": "Vidly - application - development",
   "db": {
-    "uri": "mongodb://localhost:27017/vidly",
+    "uri": "mongodb://mongodb/vidly",
     "options": {
       "useNewUrlParser": true,
       "useUnifiedTopology": true,
